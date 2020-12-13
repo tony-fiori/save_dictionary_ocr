@@ -607,13 +607,27 @@ void correction_solutions(char* word, int var_avant, int var_apres)
     }
 }
 
+char* first_solution(char* word)
+{
+    char *r = correction(word,0,0);
+    return r;
+}
 
 
 ///////////////////////////// MAIN OPENFILE /////////////////////////////////
 
 int main(int argc, char* argv[]){
-    correction_solutions(argv[1], -1, 1);
-    return argc;
+    if (argc <= 1){
+        printf("Usage : ./[nom_exe] [char* str] --> return char* first solution of dictionary\n");
+    }
+    else{
+        char *str = correction(argv[1], 0, 0); // first 0 => solution index so 0 => first solution
+        // second 0 => search in file length_[word_length + 0]
+        printf("first solution : \"%s\"\n",str);
+        free(str); // don t forget to free the string
+    }
+
+    //correction_solutions(argv[1], 0, 1);
     /*
     int done = 0;
     

@@ -617,36 +617,11 @@ char* first_solution(char* word)
     return r;
 }
 
-/*
-char* next_word_file(FILE* file, int max_length, int* finished){
-    char* word = malloc(sizeof (char) * length);
-    int i = 0;
-    int int_charr = fgetc(file);
-    if ('A' <= int_charr && int_charr <= 'Z'){
-        int_charr += 'a' - 'A';
-    }
-    while (('A' <= int_charr && int_charr <= 'Z')|| ('a' <= int_charr && int_charr <= 'z')){
-        if ('A' <= int_charr && int_charr <= 'Z'){
-            int_charr += 'a' - 'A';
-        }
-        word[i] = int_charr;
-        int_charr = fgetc(file);
-        i++;
-    }
-    word[i] = '\0';
-
-    while (int_charr != EOF && !('A' <= int_charr && int_charr <= 'Z')&& !('a' <= int_charr && int_charr <= 'z'))
-    //fgetc(file);
-    return word;
-}*/
-/*
-*/
-
 
 void first_file(char* filename){
     int length_max = 50;
     int l_filename = strlen(filename);
-    char* start = ".c_";
+    char* start = "c_";
     int l_start = strlen(start);
     int l_filename_dupli = l_start + l_filename;
     char* filename_dupli = malloc(sizeof(char) * l_filename_dupli);
@@ -720,24 +695,6 @@ void first_file(char* filename){
                 printf("mot[%i] = %s\n",index, word);
             }
             index++;
-
-            /*/////////////
-            char* t_word = malloc(sizeof(char)*length_max);
-            if (exist_eng(word) == 2)
-            {
-                printf("conf\n");
-                t_word = correction(word, 0, 1);
-            }
-
-            if (strlen(word) >= 1 && first_maj == 1)
-            {
-                t_word[0] -= ('a' - 'A');
-            }
-            //t_word[i]='\0';
-            fputs(t_word, file_dupli);
-            printf("\nmot = %s",t_word);
-            free(t_word);
-            /////////////////////////////////*/
             free(word);
             while (int_charr != EOF && !('A' <= int_charr && int_charr <= 'Z')&& !('a' <= int_charr && int_charr <= 'z'))
             {
@@ -786,20 +743,146 @@ int transform_str_int(char* str)
     return r;
 }
 
+/*
+void modification(char* filenameref, char* filename_dupli, int index_word, int mod)
+{
+    int length_max = 50;
+    int l_filename = strlen(filename);
+    char* start = ".c_";
+    int l_start = strlen(start);
+    int l_filename_dupli = l_start + l_filename;
+    char* filename_dupli = malloc(sizeof(char) * l_filename_dupli);
+    strcpy(filename_dupli, start);
+    strcat(filename_dupli, filename);
+    filename_dupli[l_filename_dupli] = '\0';
+    FILE* file = fopen(filename,"r");
+    FILE* file_dupli = fopen(filename_dupli,"a");
+
+    int first_maj = 0;
+    int index = 0;
+    
+    int int_charr = fgetc(file);
+    if ('A' <= int_charr && int_charr <= 'Z'){
+        int_charr += 'a' - 'A';
+        first_maj = 1;
+    }
+    while (int_charr != EOF)
+    {
+        while (int_charr != EOF && !('A' <= int_charr && int_charr <= 'Z')&& !('a' <= int_charr && int_charr <= 'z'))
+        {
+            // insertion fichier int_charr
+            char* one_char = malloc(sizeof(char)*1);
+            one_char[0] = int_charr;
+            one_char[1] = '\0';
+            fputs(one_char, file_dupli);
+            //printf("\'%c\' ",int_charr);
+            free(one_char);
+            int_charr = fgetc(file);
+        }
+        if (int_charr != EOF)
+        {
+            char* word = malloc(sizeof (char) * length_max);
+            int i = 0;
+            
+            while (int_charr != EOF && (('A' <= int_charr && int_charr <= 'Z')|| ('a' <= int_charr && int_charr <= 'z')))
+            {
+                if ('A' <= int_charr && int_charr <= 'Z')
+                {
+                    if (i == 0)
+                    {
+                        first_maj = 1;
+                    }
+                    int_charr += 'a' - 'A';
+                }
+                word[i] = int_charr;
+                int_charr = fgetc(file);
+                i++;
+            }
+            word[i] = '\0';
+            
+
+            if (i == index_word)
+            {
+                int ind_s = 0:
+                char* test = correction()
+            }
+            ////////////////////////////
+            if (exist_eng(word) == 2)
+            {
+                char* t_word = first_solution(word);
+                if (strlen(t_word) >= 1 && first_maj == 1)
+                {
+                    t_word[0] -= ('a' - 'A');
+                }
+                fputs(t_word, file_dupli);
+                printf("mot[%i] = %s\n",index, t_word);
+                free(t_word);
+            }
+            else
+            {
+                if (strlen(word) >= 1 && first_maj == 1)
+                {
+                    word[0] -= ('a' - 'A');
+                }
+                fputs(word, file_dupli);
+                printf("mot[%i] = %s\n",index, word);
+            }
+            //////////////////////////
+            index++;
+            free(word);
+            while (int_charr != EOF && !('A' <= int_charr && int_charr <= 'Z')&& !('a' <= int_charr && int_charr <= 'z'))
+            {
+                // insertion fichier int_charr
+                char* one_char = malloc(sizeof(char)*1);
+                one_char[0] = int_charr;
+                one_char[1] = '\0';
+                fputs(one_char, file_dupli);
+                //printf("\'%c\' ",int_charr);
+                free(one_char);
+                int_charr = fgetc(file);
+            }
+        }
+        first_maj = 0;
+    }
+    free(filename_dupli);
+    fclose(file);
+    fclose(file_dupli);
+}
+*/
+
+void put_in_file(char* str, char* filename){
+    FILE* file = fopen(filename,"w");
+    fputs(str, file);
+    fclose(file);
+}
+
+char* from_file(char* filename){ // don t forget to free() the string after usage
+    FILE* file = fopen(filename,"r");
+    char charr = fgetc(file);
+    int len = 0;
+    while (charr != EOF){
+        len++;
+        charr = fgetc(file);
+    }
+    fclose(file);
+    FILE* file2 = fopen(filename, "r");
+    char* str = malloc(sizeof(char) * len);
+    char charrr = fgetc(file2);
+    int i = 0;
+    while(i < len && charrr != EOF){
+        str[i] = charrr;
+        i++;
+        charrr = fgetc(file2);
+    }
+    fclose(file2);
+    str[i] = '\0';
+    return str;
+}
+
 
 ///////////////////////////// MAIN OPENFILE /////////////////////////////////
-
+/*
 int main(int argc, char* argv[]){
-    /*
-    if (argc <= 1){
-        printf("Usage : ./[nom_exe] [char* str] --> return char* first solution of dictionary\n");
-    }
-    else{
-        char *str = first_solution(argv[1]); // first 0 => solution index so 0 => first solution
-        // second 0 => search in file length_[word_length + 0]
-        printf("first solution : \"%s\"\n",str);
-        free(str); // don t forget to free the string
-    }*/
 
     //correction_solutions(argv[1], 0, 1);
     int first = 1;
@@ -808,7 +891,6 @@ int main(int argc, char* argv[]){
         first = 0;
         done = 1;
         first_file(argv[2]);
-
     }
     
     
@@ -857,7 +939,27 @@ int main(int argc, char* argv[]){
         printf("Usage : ./a.out [word] [length_min] [length_max]\n");
     }
 
-    /*
+    return 0;
+}*/
+
+int main(){
+    char* filename = "ocr_text.txt";
+    char* filename_correction = "c_ocr_text.txt"; // fichier caché 
+    char* str_ocr = "This is my girst correctjon!";
+
+    put_in_file(str_ocr, filename);
+
+    first_file(filename);
+
+    char* after_first_correction = from_file(filename_correction);
+    printf("%s\n",after_first_correction);
+    free(after_first_correction);
+    
+    return 0; 
+}
+
+
+/*
     //printf("%d\n",count_word(argv[1]));
     printf("check0\n");
 
@@ -925,8 +1027,4 @@ int main(int argc, char* argv[]){
     fclose(file);
     free(filename);
     free(word_file);
-    */
-    return 0;
-}
-
-
+    //*/

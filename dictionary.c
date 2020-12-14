@@ -925,7 +925,7 @@ int main(int argc, char* argv[]){
     fclose(file);
     free(filename);
     free(word_file);
-    //*/
+    */
     return 0;
 }
 
